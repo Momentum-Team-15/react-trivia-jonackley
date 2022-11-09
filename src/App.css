@@ -1,0 +1,21 @@
+body {
+  margin: .50em;
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+  margin: .5em;
+  padding: 5px;
+}
+
+.cat-container {
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+
+}
