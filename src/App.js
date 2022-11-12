@@ -1,31 +1,51 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { requestCats } from './request.js'
+import { Questions } from './components/CatQ'
+import { Categories} from './components/CatList'
 
 
 function App() {
   const [categories, setCategories] = useState ([])
+  const [singleCat, setSingleCat] = useState (null)
+  const [questions, setQuestions] = useState ([])
+  const [url, setUrl] = useState (null)
 
   useEffect(() => {
-    axios.get('https://opentdb.com/api_category.php').then(response => setCategories(response.data.trivia_categories))
+    requestCats().then(response => setCategories(response.data.trivia_categories))
   }, [])
     
+  useEffect(() => {
+    axios.get(url).then(response => setQuestions(response.data.results))
+
+}, [url])
+    
   return (
-    <div className='App'>
+    <div>
       <header className='header'><h2>Trivialities</h2></header>
         <h3>Click on a category to start your Quiz!</h3>
-        {categories.map((topic) => (
-        
-          <div className='cat-container'>           
-              <button onClick={topic.name}> <h4>{topic.name}</h4></button>
-          </div>
-                    
-          ))}
-    
+            <div className='cat-container'>           
+              {singleCat ? (
+                <Questions
+                  singleCat={singleCat}
+                  setSingleCat={setSingleCat}/> 
+              ) : (
+                <>
+                  {category.map((topic) => (
+                    <div className='cat-butt'>
+                      <Categories
+                        setSingleCat={setSingleCat}
+                        category={category}
+                        setUrl={setUrl}/>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          ))}  
     </div>
   )
-
 }
 
 export default App;
