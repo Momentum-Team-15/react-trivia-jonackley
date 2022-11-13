@@ -1,19 +1,19 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { requestCats } from './request.js'
+import { requestCats } from './requests.js'
 import { Questions } from './components/CatQ'
 import { Categories} from './components/CatList'
 
 
 function App() {
-  const [categories, setCategories] = useState ([])
+  const [category, setCategory] = useState ([])
   const [singleCat, setSingleCat] = useState (null)
   const [questions, setQuestions] = useState ([])
-  const [url, setUrl] = useState (null)
+  const [url, setUrl] = useState ()
 
   useEffect(() => {
-    requestCats().then(response => setCategories(response.data.trivia_categories))
+    requestCats().then(response => setCategory(response.data.trivia_categories))
   }, [])
     
   useEffect(() => {
