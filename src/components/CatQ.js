@@ -12,8 +12,8 @@ export const Questions = ({singleCat, setSingleCat}) => {
 
     useEffect(() => {
         requestQ(singleCat).then(response => {
-            setTriviaQuestion(response.data.results.question)
-            setRightAnswer(response.data.results.correct_answer)
+            setTriviaQuestion(response.data.results[counter].question.replace(/[^a-zA-Z0-9 ,?%]/g, ''))
+            setRightAnswer(response.data.results[counter].correct_answer.replace(/[^a-zA-Z0-9 ,?%]/g, ''))
             setWrongAnswer(response.data.results.incorrect_answers)
         })
     }, [singleCat, counter])
@@ -24,6 +24,10 @@ export const Questions = ({singleCat, setSingleCat}) => {
             <h2>{triviaQuestion}</h2>
             {console.log(triviaQuestion)}
             <button onClick={handleNext}>{rightAnswer}</button>
+            {wrongAnswer.map((wrong, index) =>
+                <button key={index} onClick={handleNext}>{wrong.replace(/[^a-zA-Z0-9 ,?%]/g, '')}</button>
+            )}
+            <h2>Number of Right Answers: {counter}</h2>
         </div>
 
     )

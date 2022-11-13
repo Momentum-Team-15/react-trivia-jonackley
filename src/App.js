@@ -1,9 +1,9 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { requestCats } from './requests.js'
-import { Questions } from './components/CatQ'
-import { Categories} from './components/CatList'
+import { requestCats } from './requests';
+import { Questions } from './components/CatQ';
+import { Categories } from './components/CatList';
 
 
 function App() {
@@ -14,12 +14,10 @@ function App() {
 
   useEffect(() => {
     requestCats().then(response => setCategory(response.data.trivia_categories))
-  }, [])
+      }, [])
     
   useEffect(() => {
-    axios.get(url).then(response => setQuestions(response.data.results))
-
-}, [url])
+    axios.get(url).then(response => setQuestions(response.data.results))}, [url])
     
   return (
     <div>
@@ -36,14 +34,14 @@ function App() {
                     <div className='cat-butt'>
                       <Categories
                         setSingleCat={setSingleCat}
-                        category={category}
+                        category={topic.name}
                         setUrl={setUrl}/>
                     </div>
                   ))}
                 </>
               )}
             </div>
-          ))}  
+    
     </div>
   )
 }
